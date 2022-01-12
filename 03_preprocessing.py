@@ -6,15 +6,13 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from konlpy.tag import Okt
 from tensorflow.keras.preprocessing.text import *
-from tensorflow.keras.preprocessing.text import tokenizer_from_json
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from sklearn.preprocessing import LabelEncoder
 from keras.utils import to_categorical
 import warnings
+
 warnings.filterwarnings(action='ignore')
 import pickle
-
-
 
 df = pd.read_csv('./crawling/naver_news.csv')
 print(df.head())
@@ -29,13 +27,14 @@ label = encoder.classes_
 
 print(labeled_Y[0])
 print(label)
-# with open('./models/encoder.pickle', 'wb') as f:
-#     pickle.dump(encoder, f)
+with open('./models/encoder.pickle', 'wb') as f:
+    pickle.dump(encoder, f)
 
 onehot_Y = to_categorical(labeled_Y)
 print(onehot_Y)
 
 okt = Okt()
+
 # print(type(X))
 # okt_morph_X = okt.morphs(X[2], stem=True)
 # print(X[0])
@@ -71,9 +70,8 @@ token.fit_on_texts(X)
 tokened_X = token.texts_to_sequences(X)
 print(tokened_X[:5])
 
-
-# with open('./models/news_token.pickle','wb') as f:
-#     pickle.dump(token, f)
+with open('./models/news_token.pickle', 'wb') as f:
+    pickle.dump(token, f)
 
 print(token.index_word)
 
@@ -97,7 +95,7 @@ print(X_train.shape, Y_train.shape)
 print(X_test.shape, Y_test.shape)
 
 xy = X_train, X_test, Y_train, Y_test
-np.save('./crawling/news_data_max_{}_size_{}'.format(maximum,word_size), xy)
+np.save('./models/news_data_max_{}_size_{}'.format(maximum, word_size), xy)
 
 print('\n\n=====DONE=====')
 print('    code 0     ')

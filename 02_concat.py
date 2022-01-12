@@ -10,10 +10,10 @@ import glob
 # df_IT.to_csv('./crawling/team_crawling/news_IT_1-50.csv', index=False)
 
 
-data_paths = glob.glob('./crawling/team_crawling/*')
+data_paths = glob.glob('./crawling/news_*.csv')
 df = pd.DataFrame()
 for data_path in data_paths:
-    df_temp = pd.read_csv(data_path, index_col=0)
+    df_temp = pd.read_csv(data_path)
     df = pd.concat([df, df_temp])
 df.dropna(inplace=True)
 df.reset_index(drop=True, inplace=True)

@@ -20,7 +20,7 @@ options.add_argument('disable-gpu')
 driver = webdriver.Chrome('C:\Python\PycharmProjects\chromedriver.exe', options=options)
 
 category = ['Politics', 'Economic', 'Social', 'Culture', 'World', 'IT']
-pages = [131, 131, 131, 101, 131, 77]
+pages = [128, 128, 128, 88, 128, 70]
 
 df_titles = pd.DataFrame()
 
@@ -42,13 +42,13 @@ def crawl_title():
     try:
         title = driver.find_element_by_xpath(
             '//*[@id="section_body"]/ul[{1}]/li[{0}]/dl/dt[2]/a'.format(i, j)).text  # xpath로 찾아 text로 받음
-        title = re.compile('[^가-힣|a-z|A-Z|0-9 ]').sub(' ', title)
+        title = re.compile('[^가-힣|a-z|A-Z ]').sub(' ', title)
         print(title)
         titles.append(title)
     except NoSuchElementException:
         title = driver.find_element_by_xpath(
             '//*[@id="section_body"]/ul[{1}]/li[{0}]/dl/dt/a'.format(i, j)).text  # xpath로 찾아 text로 받음
-        title = re.compile('[^가-힣|a-z|A-Z|0-9|,.\'\" ]').sub(' ', title)  # "|一-龥 " < 한자 정규표현식
+        title = re.compile('[^가-힣|a-z|A-Z ]').sub(' ', title)  # "|一-龥 " < 한자 정규표현식
         print(title)
         titles.append(title)
 
